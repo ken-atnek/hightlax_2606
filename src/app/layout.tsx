@@ -47,11 +47,20 @@ export const metadata: Metadata = {
       siteName,
       url: metadataBase?.toString(),
       type: 'website',
+      images: [
+        {
+          url: '/images/ogp.jpg',
+          width: 1200,
+          height: 630,
+          alt: 'HIGH LAX のOGP画像',
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: siteName,
       description: siteDescription,
+      images: ['/images/ogp.jpg'],
     },
   }),
   robots: isRealProduction ? 'index, follow' : 'noindex, nofollow',
