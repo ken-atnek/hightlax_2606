@@ -54,11 +54,11 @@
 
 ```tsx
 /* =======================================
- * 熊日すぱいす CONTACT セクション
- * URL: /src/components/Top/ContainerContact.tsx
+ * Highlax TOP Hero セクション
+ * URL: /src/components/top/TopHero.tsx
  * Referenced in: /src/app/page.tsx
- * Created: 2026-05-01
- * Last updated: 2026-05-01
+ * Created: 2026-06-10
+ * Last updated: 2026-06-10
  * ======================================= */
 ```
 

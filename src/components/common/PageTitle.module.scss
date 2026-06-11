@@ -1,0 +1,26 @@
+@use "../../styles/foundation/" as *;
+
+/* =======================================
+ * Highlax 共通ページタイトル スタイル
+ * URL: /src/components/common/PageTitle.module.scss
+ * Referenced in: /src/components/common/PageTitle.tsx
+ * Created: 2026-06-11
+ * Last updated: 2026-06-11
+ * ======================================= */
+
+.pageTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16rem 2rem 11rem;
+    border-bottom: 1px solid #999;
+    h1 {
+        @include radio-canada-big;
+        font-size: fz(140);
+        font-weight: 700;
+        line-height: 0.95;
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+        text-align: center;
+    }
+}

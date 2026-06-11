@@ -1,0 +1,126 @@
+@use "../../styles/foundation/" as *;
+
+/* =======================================
+ * Highlax TOP Service スタイル
+ * URL: /src/components/top/TopService.module.scss
+ * Referenced in: /src/components/top/TopService.tsx
+ * Created: 2026-06-10
+ * Last updated: 2026-06-11
+ * ======================================= */
+
+.containerService {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 45px 0 0;
+    background: url("/images/top/service.webp") no-repeat center center / cover;
+    h2 {
+        @include top-h2;
+        color: $main-white;
+        margin-left: 2vw;
+    }
+    .sidebarH2 {
+        margin-top: 2.828em;
+        margin-bottom: 3.718em;
+        font-size: fz(64);
+        color: $main-white;
+        @include radio-canada-big;
+        font-weight: 700;
+        text-align: center;
+    }
+    article {
+        background-color: $main-black;
+        color: $main-white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-inline: calc(2vw + 0.7em);
+        padding-bottom: 10rem;
+        .innerNav {
+            position: relative;
+            width: 100%;
+            max-width: $article-max-width;
+            font-size: inherit;
+            margin-bottom: 9rem;
+            nav {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                font-size: inherit;
+                counter-reset: number 0;
+                width: 100%;
+                a {
+                    position: relative;
+                    font-size: inherit;
+                    display: flex;
+                    flex-direction: column;
+                    padding: 4rem 0 5rem;
+                    &::before {
+                        content: "S/0" counter(number);
+                        counter-increment: number 1;
+                        @include radio-canada-big;
+                        font-size: fz(16);
+                        font-weight: 500;
+                        margin-bottom: 1.6rem;
+                    }
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        bottom: 0;
+                        left: 50%;
+                        translate: -50%;
+                        width: 100vw;
+                        height: 1px;
+                        background-color: #999;
+                    }
+                    span {
+                        @include radio-canada-big;
+                        font-size: fz(60);
+                        font-weight: 700;
+                        text-transform: uppercase;
+                    }
+                    h3 {
+                        font-size: fz(19);
+                        font-weight: 500;
+                        letter-spacing: 0.02em;
+                        margin-top: 5px;
+                    }
+                }
+            }
+            .pageImage {
+                position: absolute;
+                top: 50%;
+                right: 0;
+                translate: 0 -50%;
+                width: min(34vw, 580px);
+                aspect-ratio: 1;
+                overflow: hidden;
+                background-color: #1a1a1a;
+                .pageImageItem {
+                    object-fit: cover;
+                    position: absolute;
+                    inset: 0;
+                }
+                .pageImageItemPrevious {
+                    opacity: 1;
+                }
+                .pageImageItemCurrent {
+                    animation: top-service-image-fade 0.5s ease forwards;
+                }
+            }
+        }
+        .pageLink {
+            @include page-link;
+            --color: #{$main-white};
+        }
+    }
+}
+
+@keyframes top-service-image-fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

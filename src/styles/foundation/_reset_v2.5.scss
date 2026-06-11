@@ -1,7 +1,6 @@
 * {
     margin: 0;
     padding: 0;
-
     /* line-heightをemベースでcalc()で計算。font-sizeを小さくするとline-heightは大きくなり、font-sizeを大きくするとline-heightは小さくなります。参考: https://kittygiraudel.com/2020/05/18/using-calc-to-figure-out-optimal-line-height/ */
     line-height: calc(0.25rem + 1em + 0.25rem);
     font-size: 62.5%;
@@ -23,17 +22,16 @@
     background-origin: border-box;
     background-repeat: no-repeat;
 }
+
 html {
     /* アプリケーションでパーセントによる高さを許可する  */
     block-size: 100%;
-
     /* テキストのサイズはfont-sizeのみで制御されるようにする */
     text-size-adjust: none;
     font-size: 62.5%;
     height: fit-content;
     min-height: 100%;
     overflow-x: hidden;
-
     /* スムーススクロール */
     scroll-behavior: smooth;
 }
@@ -44,6 +42,7 @@ html {
         scroll-behavior: smooth;
     }
 }
+
 body {
     position: relative;
     font-size: 1.6em;
@@ -52,6 +51,7 @@ body {
     overflow-x: hidden;
     min-block-size: 100%;
 }
+
 a {
     color: inherit;
     &:link,
@@ -66,6 +66,7 @@ a {
 :where(img, svg, video, canvas, audio, iframe, embed, object) {
     display: block;
 }
+
 :where(img, svg, video) {
     block-size: auto;
     max-inline-size: 100%;
@@ -82,7 +83,6 @@ a {
     /* fillを取り除き、ストロークのカラーはフォントカラーを継承 */
     stroke: currentcolor;
     fill: none;
-
     /* 丸みを帯びたストローク */
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -102,6 +102,7 @@ a {
 :where(ul, ol, li)[role="list"] {
     list-style: none;
 }
+
 ul,
 ol,
 li {
@@ -122,6 +123,7 @@ a:not([class]) {
         transition-duration: 0.25s;
     }
 }
+
 :where(:not(:active)):focus-visible {
     outline-offset: 5px;
 }
@@ -152,15 +154,18 @@ a:not([class]) {
 )[disabled] {
     cursor: not-allowed;
 }
+
 time {
     font-size: 1em;
 }
+
 hr {
     height: 0;
     margin: 0;
     padding: 0;
     border: 0;
 }
+
 span,
 strong,
 em,
@@ -169,6 +174,7 @@ i,
 b {
     font-size: 1em;
 }
+
 button {
     border: none;
     text-decoration: none;

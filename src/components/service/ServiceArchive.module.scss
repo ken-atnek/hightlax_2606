@@ -1,0 +1,233 @@
+@use "../../styles/foundation/" as *;
+
+/* =======================================
+ * Highlax SERVICE 一覧 スタイル
+ * URL: /src/components/service/ServiceArchive.module.scss
+ * Referenced in: /src/components/service/ServiceArchive.tsx
+ * Created: 2026-06-11
+ * Last updated: 2026-06-11
+ * ======================================= */
+
+.serviceArchive {
+    padding: 5rem 2vw 10rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .serviceNav {
+        position: absolute;
+        top: -1.4em;
+        right: 0;
+        z-index: 5;
+        display: grid;
+        justify-content: end;
+        gap: 0.8rem 0;
+        margin-left: auto;
+        font-size: inherit;
+        &.isFixed {
+            position: fixed;
+            top: 12rem;
+        }
+        .navLink {
+            @include radio-canada-big;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 0 0.8rem;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            border: 1px solid #999;
+            border-right: 0;
+            background-color: $light-gray;
+            color: $main-black;
+            text-transform: uppercase;
+            font-size: inherit;
+            span {
+                color: $main-black;
+                font-size: fz(14);
+            }
+            em {
+                font-size: fz(14);
+                font-weight: 700;
+            }
+        }
+    }
+    .sectionList {
+        display: flex;
+        flex-direction: column;
+        max-width: 1310px;
+        gap: 3.2rem 0;
+        font-size: inherit;
+        overflow: hidden;
+        width: 100%;
+        article {
+            background-color: $main-black;
+            color: $main-white;
+            padding: 3.2rem 3.6rem 7.2rem;
+            // scroll-margin-top: 14rem;
+            .sectionHead {
+                display: flex;
+                flex-direction: column;
+                gap: 0.2rem 0;
+                margin-bottom: 4.2rem;
+                font-size: inherit;
+                p,
+                h2 {
+                    @include radio-canada-big;
+                    text-transform: uppercase;
+                }
+                p {
+                    font-size: fz(14);
+                }
+                h2 {
+                    font-size: fz(34);
+                    font-weight: 700;
+                    line-height: 1;
+                }
+                span {
+                    font-size: fz(16);
+                    font-weight: 500;
+                    letter-spacing: 0.02em;
+                }
+            }
+            .sliderWrap {
+                width: 100%;
+                margin-inline: auto;
+                position: relative;
+                z-index: 3;
+                .sliderStage {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    .slideArrow {
+                        @include flex-center;
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        z-index: 6;
+                        width: 4rem;
+                        aspect-ratio: 1;
+                        border-radius: 0;
+                        border: 0;
+                        background-color: $light-gray;
+                        cursor: pointer;
+                        padding: 0;
+                        &::after {
+                            content: "";
+                            position: absolute;
+                            inset: 0;
+                            margin: auto;
+                            width: 1.4rem;
+                            @include svg-arrow-right("1D1D1D");
+                        }
+                        &.prevArrow {
+                            translate: calc(-50% + 25rem) -50%;
+                        }
+                        &.nextArrow {
+                            translate: calc(-50% - 25rem) -50%;
+                            &::after {
+                                scale: -1 1;
+                            }
+                        }
+                    }
+                    .slideViewport {
+                        position: relative;
+                        width: 100%;
+                        min-height: 60rem;
+                        perspective: 1600px;
+                        overflow: hidden;
+                        .slideCard {
+                            position: absolute;
+                            inset: 0;
+                            margin: auto;
+                            width: 50rem;
+                            height: 60rem;
+                            background-color: transparent;
+                            overflow: hidden;
+                            transform-origin: center;
+                            transition:
+                                opacity 0.35s ease,
+                                transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+                            // box-shadow: 0 2.4rem 4.8rem rgb(0 0 0 / 24%);
+                            opacity: 0;
+                            transform: translateX(0) scale(0.56) rotateY(0deg);
+                            pointer-events: none;
+                            img {
+                                object-fit: cover;
+                                display: block;
+                            }
+                            &[data-slide-state="far-prev"] {
+                                opacity: 0;
+                                transform: translateX(-56%) scale(0.6)
+                                    rotateY(24deg);
+                                z-index: 0;
+                            }
+                            &[data-slide-state="far-next"] {
+                                opacity: 0;
+                                transform: translateX(56%) scale(0.6)
+                                    rotateY(-24deg);
+                                z-index: 0;
+                            }
+                            &[data-slide-state="prev"] {
+                                opacity: 0.54;
+                                transform: translateX(-80%) scale(0.78)
+                                    rotateY(10deg);
+                                z-index: 1;
+                            }
+                            &[data-slide-state="next"] {
+                                opacity: 0.54;
+                                transform: translateX(80%) scale(0.78)
+                                    rotateY(-10deg);
+                                z-index: 1;
+                            }
+                            &[data-slide-state="active"] {
+                                opacity: 1;
+                                transform: translateX(0) scale(1) rotateY(0deg);
+                                z-index: 3;
+                                pointer-events: auto;
+                            }
+                        }
+                    }
+                }
+            }
+            .sectionBody {
+                width: 100%;
+                display: grid;
+                justify-items: center;
+                gap: 2.2rem 0;
+                text-align: center;
+                font-size: inherit;
+                translate: 0 -3rem;
+                z-index: 0;
+                margin-bottom: -3rem;
+                h3 {
+                    @include radio-canada-big;
+                    color: #bfbfbf;
+                    font-size: fz(120);
+                    font-weight: 700;
+                    line-height: 0.92;
+                    letter-spacing: -0.02em;
+                    text-transform: uppercase;
+                }
+                .description {
+                    display: flex;
+                    flex-direction: column;
+                    font-size: inherit;
+                    margin-top: 6rem;
+                    span {
+                        font-size: fz(16);
+                        line-height: 2.4em;
+                        font-weight: 500;
+                        display: flex;
+                    }
+                }
+                .linkWorks {
+                    @include page-link;
+                    --color: #{$main-white};
+                    justify-self: end;
+                    margin-top: 0.8rem;
+                    margin-right: 2.8rem;
+                }
+            }
+        }
+    }
+}

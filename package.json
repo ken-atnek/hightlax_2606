@@ -8,9 +8,12 @@
     "build:prod": "cross-env NEXT_PUBLIC_IS_REAL_PROD=true NEXT_PUBLIC_METADATA_BASE=https://highlax.jp/ next build && rimraf out/404.html out/404",
     "start": "next start",
     "lint": "next lint",
-    "lint:style": "stylelint \"src/**/*.scss\" --fix"
+    "lint:style": "stylelint \"src/**/*.scss\"",
+    "lint:style:fix": "stylelint \"src/**/*.scss\" --fix"
   },
   "dependencies": {
+    "@splidejs/react-splide": "^0.7.12",
+    "@splidejs/splide": "^4.1.4",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3"

@@ -1,0 +1,115 @@
+@use "../../styles/foundation/" as *;
+
+/* =======================================
+ * Highlax Header スタイル
+ * URL: /src/components/common/Header.module.scss
+ * Referenced in: /src/components/common/Header.tsx
+ * Created: 2026-06-09
+ * Last updated: 2026-06-11
+ * ======================================= */
+
+.containerHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    color: #444;
+    padding-inline: 2vw;
+    gap: 0 1em;
+    padding-top: 2.4rem;
+    &[data-page-type="top"] {
+        color: $main-white;
+        .logo {
+            svg {
+                fill: $main-white;
+            }
+        }
+        .snsInsta {
+            svg {
+                fill: $main-white;
+            }
+        }
+        .linkContact {
+            span {
+                &::after {
+                    @include svg-arrow-top-right("e7e7e7");
+                }
+            }
+        }
+    }
+    &[data-page-type="sub"] {
+        color: #444;
+        .logo {
+            svg {
+                fill: #444;
+            }
+        }
+        .snsInsta {
+            svg {
+                fill: #444;
+            }
+        }
+        .linkContact {
+            span {
+                &::after {
+                    @include svg-arrow-top-right("444");
+                }
+            }
+        }
+    }
+    .logo {
+        display: block;
+        a {
+            display: block;
+        }
+        svg {
+            width: 47px;
+            aspect-ratio: 47/40;
+        }
+    }
+    nav {
+        font-size: inherit;
+        @include radio-canada-big;
+        display: flex;
+        align-items: center;
+        gap: 0 2em;
+        margin-left: 2em;
+        a {
+            text-transform: uppercase;
+            font-size: fz(16);
+            font-weight: 700;
+        }
+    }
+    .snsInsta {
+        width: 2rem;
+        margin-left: auto;
+        svg {
+            aspect-ratio: 1;
+        }
+    }
+    .linkContact {
+        border: 1px solid;
+        border-radius: 100vmax;
+        font-size: inherit;
+        padding: 0.2em 0.8em;
+        span {
+            @include radio-canada-big;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: fz(18);
+            position: relative;
+            padding-right: 0.6em;
+            &::after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                translate: 0 -50%;
+                right: 0;
+                width: 1rem;
+            }
+        }
+    }
+}

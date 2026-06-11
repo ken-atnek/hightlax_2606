@@ -107,6 +107,12 @@ out
 build
 ```
 
+### Stylelint スクリプト運用
+
+- `npm run lint:style` はチェック専用にする
+- `npm run lint:style:fix` は必要な時だけ実行する
+- `--fix` 後にネスト内の不要な空白行が残る場合は、SCSSルールに合わせて手で詰める
+
 ### next.config.ts
 
 ```typescript
@@ -148,3 +154,65 @@ const nextConfig: NextConfig = {
 
 export default nextConfig;
 ```
+
+### static export 時の App Router 補足
+
+- `src/app/robots.ts` と `src/app/sitemap.ts` を使う時は `export const dynamic = 'force-static';` を付ける
+- `useSearchParams()` を使う client component は、静的ビルド対象ページ側で `Suspense` 境界に入れる
+
+### デモ / 本番ビルドのSEO切り替え
+
+- `build:demo` と `build:prod` を分ける案件では、`NEXT_PUBLIC_IS_REAL_PROD` を必ず付ける
+- `NEXT_PUBLIC_METADATA_BASE` も build script 側で環境ごとに切り替える
+- `src/lib/env.ts` に `isRealProduction` を切り出して、`layout.tsx` / `robots.ts` / `sitemap.ts` から共通利用する
+
+#### 例
+
+```json
+{
+  "scripts": {
+    "build:demo": "cross-env NEXT_PUBLIC_IS_REAL_PROD=false NEXT_PUBLIC_METADATA_BASE=https://demo.example.jp/ next build",
+    "build:prod": "cross-env NEXT_PUBLIC_IS_REAL_PROD=true NEXT_PUBLIC_METADATA_BASE=https://example.jp/ next build"
+  }
+}
+```
+
+#### 方針
+
+- 本番時だけ `metadataBase` / `openGraph` / `twitter` を有効にする
+- デモ時は `robots: noindex, nofollow` にする
+- デモ時の `robots.ts` は `disallow: '/'`、`sitemap.ts` は空配列にする
+
+### SVGスプライトの初期配置
+
+`<use href="#...">` でロゴやアイコンを共通利用する案件では、初期構築時に以下を用意する。
+
+- `src/components/SvgDefs.tsx`
+- `public/svg/object.svg`
+- `src/app/layout.tsx` で `<SvgDefs />` を読み込む
+
+`SvgDefs.tsx` では `public/svg/object.svg` を `fetch` して非表示で埋め込み、各コンポーネントから `use` 参照できる状態を作る。
+
+### 共通リンクコンポーネントの初期配置
+
+外部リンクを扱う案件では、初期構築時に `src/components/common/ExternalLink.tsx` を用意する。
+
+- 外部遷移は `target="_blank"` と `rel="noopener noreferrer"` を共通化する
+- 各所で生の `a` タグをばらばらに書かない
+
+### フォント設定の初期配置
+
+Google Fonts を使う案件では、初期構築時に以下を揃える。
+
+- `src/app/layout.tsx` で `next/font/google` を設定
+- `src/styles/foundation/_typography.scss` にフォント用 `mixin` を作成
+- `body` の基本フォントだけ `globals.scss` から `@include` する
+
+変数名・`mixin` 名は役割名ではなく、実フォント名ベースで揃える。
+
+#### 例
+
+- `--font-ibm-plex-sans-jp`
+- `--font-radio-canada-big`
+- `@mixin ibm-plex-sans-jp`
+- `@mixin radio-canada-big`

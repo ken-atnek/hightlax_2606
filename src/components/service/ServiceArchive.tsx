@@ -1,0 +1,198 @@
+/* =======================================
+ * Highlax SERVICE 一覧
+ * URL: /src/components/service/ServiceArchive.tsx
+ * Referenced in: /src/app/service/page.tsx
+ * Created: 2026-06-11
+ * Last updated: 2026-06-11
+ * ======================================= */
+
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import styles from './ServiceArchive.module.scss';
+import { serviceSections } from '@/data/service';
+
+type SlideState = 'active' | 'prev' | 'next' | 'far-prev' | 'far-next';
+
+const getSlideState = (
+  index: number,
+  activeIndex: number,
+  total: number
+): SlideState => {
+  const forwardDistance = (index - activeIndex + total) % total;
+  const backwardDistance = (activeIndex - index + total) % total;
+
+  if (forwardDistance === 0) {
+    return 'active';
+  }
+
+  if (backwardDistance === 1) {
+    return 'prev';
+  }
+
+  if (forwardDistance === 1) {
+    return 'next';
+  }
+
+  return forwardDistance < backwardDistance ? 'far-next' : 'far-prev';
+};
+
+export default function ServiceArchive() {
+  const [isNavFixed, setIsNavFixed] = useState(false);
+  const [activeSlides, setActiveSlides] = useState<Record<string, number>>(
+    Object.fromEntries(serviceSections.map((section) => [section.id, 1]))
+  );
+  const archiveRef = useRef<HTMLElement | null>(null);
+  const navRef = useRef<HTMLElement | null>(null);
+  const triggerPointRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const updateNavState = () => {
+      if (!archiveRef.current || !navRef.current) {
+        return;
+      }
+
+      const rootFontSize = Number.parseFloat(
+        getComputedStyle(document.documentElement).fontSize
+      );
+      const fixedOffset = rootFontSize * 12;
+      const archiveTop =
+        archiveRef.current.getBoundingClientRect().top + window.scrollY;
+
+      if (!isNavFixed || triggerPointRef.current === null) {
+        const navTop =
+          navRef.current.getBoundingClientRect().top + window.scrollY;
+        const naturalOffset = navTop - archiveTop;
+        triggerPointRef.current = archiveTop + naturalOffset - fixedOffset;
+      }
+
+      setIsNavFixed(window.scrollY >= (triggerPointRef.current ?? 0));
+    };
+
+    updateNavState();
+    window.addEventListener('scroll', updateNavState, { passive: true });
+    window.addEventListener('resize', updateNavState);
+
+    return () => {
+      window.removeEventListener('scroll', updateNavState);
+      window.removeEventListener('resize', updateNavState);
+    };
+  }, [isNavFixed]);
+
+  const handleMoveSlide = (sectionId: string, direction: 1 | -1) => {
+    setActiveSlides((prev) => {
+      const section = serviceSections.find((item) => item.id === sectionId);
+
+      if (!section) {
+        return prev;
+      }
+
+      const total = section.works.length;
+      const nextIndex = ((prev[sectionId] ?? 1) + direction + total) % total;
+
+      return {
+        ...prev,
+        [sectionId]: nextIndex,
+      };
+    });
+  };
+
+  return (
+    <section className={styles.serviceArchive} ref={archiveRef}>
+      <nav
+        ref={navRef}
+        className={`${styles.serviceNav} ${isNavFixed ? styles.isFixed : ''}`}
+        aria-label="サービスカテゴリナビゲーション"
+      >
+        {serviceSections.map((section) => (
+          <Link
+            key={section.id}
+            href={`#${section.id}`}
+            className={styles.navLink}
+          >
+            <span>{section.number}</span>
+            <em>{section.title}</em>
+          </Link>
+        ))}
+      </nav>
+
+      <div className={styles.sectionList}>
+        {serviceSections.map((section) => (
+          <article key={section.id} id={section.id}>
+            <div className={styles.sectionHead}>
+              <p>{section.number}</p>
+              <h2>{section.title}</h2>
+              <span>{section.titleJa}</span>
+            </div>
+
+            <div className={styles.sliderWrap}>
+              <div
+                className={styles.sliderStage}
+                aria-label={`${section.titleJa} の制作事例スライダー`}
+              >
+                <button
+                  type="button"
+                  className={`${styles.slideArrow} ${styles.prevArrow}`}
+                  aria-label={`${section.titleJa} の前の制作事例へ`}
+                  onClick={() => handleMoveSlide(section.id, -1)}
+                ></button>
+
+                <div className={styles.slideViewport}>
+                  {section.works.map((work, index) => {
+                    const slideState = getSlideState(
+                      index,
+                      activeSlides[section.id] ?? 1,
+                      section.works.length
+                    );
+
+                    return (
+                      <article
+                        key={work.id}
+                        className={styles.slideCard}
+                        data-slide-state={slideState}
+                        aria-hidden={
+                          slideState === 'far-prev' || slideState === 'far-next'
+                        }
+                      >
+                        <Image
+                          src={work.imageSrc}
+                          alt={work.imageAlt}
+                          fill
+                          sizes="500px"
+                        />
+                      </article>
+                    );
+                  })}
+                </div>
+
+                <button
+                  type="button"
+                  className={`${styles.slideArrow} ${styles.nextArrow}`}
+                  aria-label={`${section.titleJa} の次の制作事例へ`}
+                  onClick={() => handleMoveSlide(section.id, 1)}
+                ></button>
+              </div>
+            </div>
+
+            <div className={styles.sectionBody}>
+              <h3>{section.title}</h3>
+              <p className={styles.description}>
+                {section.descriptionLines.map((line) => (
+                  <span key={line}>{line}</span>
+                ))}
+              </p>
+              <Link
+                href={`/works/?category=${section.category}`}
+                className={styles.linkWorks}
+              >
+                WORKS
+              </Link>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}

@@ -1,0 +1,65 @@
+@use "../../styles/foundation/" as *;
+
+/* =======================================
+ * Highlax WORKS 一覧 スタイル
+ * URL: /src/components/works/WorksArchive.module.scss
+ * Referenced in: /src/components/works/WorksArchive.tsx
+ * Created: 2026-06-11
+ * Last updated: 2026-06-11
+ * ======================================= */
+
+.worksArchive {
+    padding: 5rem 2vw 12rem;
+    width: 100%;
+    position: relative;
+    margin-inline: auto;
+    font-size: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .listFilter {
+        position: absolute;
+        top: -1.4em;
+        right: 0;
+        z-index: 2;
+        display: grid;
+        grid-auto-flow: row;
+        gap: 8px 0;
+        font-size: inherit;
+        &.isFixed {
+            position: fixed;
+            top: 12rem;
+        }
+        .filterButton {
+            @include radio-canada-big;
+            background-color: $main-white;
+            border: 1px solid #999;
+            border-right: 0;
+            color: $main-black;
+            cursor: pointer;
+            display: flex;
+            justify-content: flex-start;
+            font-size: fz(14);
+            font-weight: 700;
+            line-height: 1;
+            padding: 0.8em;
+            text-transform: uppercase;
+            transition:
+                background-color 0.2s ease,
+                color 0.2s ease;
+            &[data-active="true"] {
+                background-color: $main-black;
+                color: $main-white;
+            }
+        }
+    }
+    .listWorks {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto auto 1fr;
+        gap: 5.6rem 3.2rem;
+        width: 100%;
+        max-width: $article-max-width;
+        font-size: inherit;
+    }
+}

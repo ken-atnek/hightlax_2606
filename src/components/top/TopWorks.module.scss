@@ -1,0 +1,127 @@
+@use "../../styles/foundation/" as *;
+
+/* =======================================
+ * Highlax TOP Works スタイル
+ * URL: /src/components/top/TopWorks.module.scss
+ * Referenced in: /src/components/top/TopWorks.tsx
+ * Created: 2026-06-11
+ * Last updated: 2026-06-11
+ * ======================================= */
+
+.containerWorks {
+    padding-top: 9rem;
+    padding-bottom: 10rem;
+    overflow: hidden;
+    .boxHead {
+        position: relative;
+        padding-inline: 2vw;
+        display: flex;
+        flex-direction: column;
+        font-size: inherit;
+        h2 {
+            @include top-h2;
+        }
+        p {
+            font-size: fz(16);
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            line-height: 1.8em;
+            margin-top: 1em;
+            padding-left: 1rem;
+        }
+        a {
+            @include page-link;
+            position: absolute;
+            top: 0;
+            right: 2vw;
+            --color: #{$main-black};
+        }
+    }
+    article {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        width: 100%;
+        font-size: inherit;
+        margin-top: 7rem;
+        padding-top: 48rem;
+        .innerImage {
+            display: flex;
+            gap: 0 5rem;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            translate: -50%;
+            width: max-content;
+            .itemWork {
+                width: 33rem;
+                flex: 0 1 auto;
+                &:nth-child(even) {
+                    margin-top: 9rem;
+                }
+                .imageFrame {
+                    position: relative;
+                    width: 100%;
+                    overflow: hidden;
+                    background-color: #d9d9d9;
+                    aspect-ratio: 330 / 430;
+                }
+                .imageItem {
+                    position: absolute;
+                    inset: 0;
+                    object-fit: cover;
+                    will-change: opacity, transform;
+                }
+                .imageItemPrevious {
+                    opacity: 1;
+                    animation: top-works-image-fade-out 2.4s
+                        cubic-bezier(0.33, 0, 0.13, 1) forwards;
+                }
+                .imageItemCurrent {
+                    opacity: 0;
+                    transform: scale(1.04);
+                    animation: top-works-image-fade-in 2.4s
+                        cubic-bezier(0.33, 0, 0.13, 1) forwards;
+                }
+            }
+        }
+    }
+    .boxText {
+        font-size: inherit;
+        display: flex;
+        flex-direction: column;
+        padding-left: 14vw;
+        @include radio-canada-big;
+        h3 {
+            font-size: fz(80);
+            font-weight: 700;
+        }
+        p {
+            font-size: fz(18);
+            font-weight: 500;
+            line-height: 1.6em;
+            padding-left: 2em;
+            margin-top: 0.8em;
+        }
+    }
+}
+
+@keyframes top-works-image-fade-in {
+    from {
+        opacity: 0;
+        transform: scale(1.04);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes top-works-image-fade-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}

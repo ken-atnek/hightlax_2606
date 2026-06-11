@@ -2,8 +2,9 @@
  * カラー変数
  * ------------------------------ */
 
-$main-white: #f3f3f3;
-$main-black: #191e1e;
+$main-white: #dfdfdf;
+$main-black: #1d1d1d;
+$light-gray: #e7e7e7;
 $pure-white: #fff;
 $pure-black: #000;
 
@@ -13,7 +14,6 @@ $pure-black: #000;
 :root {
     /* base */
     --color-white-100: #fdfeff;
-
     /* semantic */
     --main-white: var(--color-white-100);
 }

@@ -30,15 +30,16 @@
 1. `AGENTS.md`
 2. `docs/PAGE_STRUCTURE.md`
 3. `docs/rules/tsx-comment-rules.md`（`tsx` 編集時）
-4. `docs/rules/project-setup.md`
-5. `docs/rules/coding-style.md`
-6. `docs/rules/nextjs-export.md`
-7. `docs/rules/fetch-pattern.md`
-8. `docs/rules/ui-interactions.md`
-9. `docs/rules/checklist.md`
-10. `docs/seo/SEO_SETUP.md`
-11. `docs/seo/SEO_AUDIT_REQUEST_TEMPLATE.md`
-12. `docs/seo/SEO_FIX_TRACKER_TEMPLATE.md`
+4. `docs/rules/scss-comment-rules.md`（`scss` 編集時）
+5. `docs/rules/project-setup.md`
+6. `docs/rules/coding-style.md`
+7. `docs/rules/nextjs-export.md`
+8. `docs/rules/fetch-pattern.md`
+9. `docs/rules/ui-interactions.md`
+10. `docs/rules/checklist.md`
+11. `docs/seo/SEO_SETUP.md`
+12. `docs/seo/SEO_AUDIT_REQUEST_TEMPLATE.md`
+13. `docs/seo/SEO_FIX_TRACKER_TEMPLATE.md`
 
 ---
 
@@ -46,4 +47,5 @@
 
 - コンテンツが未確定でも、SEOの枠は先に用意する
 - `title`、`description`、`canonical`、OGPの設計は初期段階で置いておく
+- コンポーネントの `tsx` と `module.scss` は同階層に配置する
 - 依頼がない限り、大きな設計変更や全面リファクタはしない

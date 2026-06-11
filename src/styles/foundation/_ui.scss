@@ -1,5 +1,7 @@
 @use "./svg" as *;
 @use "./colors" as *;
+@use "./typography" as *;
+@use "./settings" as *;
 @use "./breakpoints" as *;
 
 /* =========================================
@@ -8,12 +10,14 @@
 @mixin drop-shadow {
     box-shadow: 2px 2px 3px 0 rgb(53 45 32 / 15%);
 }
+
 @mixin flex-center($direction: row) {
     display: flex;
     flex-direction: $direction;
     align-items: center;
     justify-content: center;
 }
+
 @mixin border-gradient {
     background-image: repeating-linear-gradient(
         to right,
@@ -30,5 +34,50 @@
             #efefef 25vw,
             #efefefca calc(25vw + 1px)
         );
+    }
+}
+
+/* =========================================
+TOPページ
+----------------------------------------- */
+
+/* タイトルH2 */
+@mixin top-h2 {
+    font-size: fz(18);
+    @include radio-canada-big;
+    font-weight: 600;
+    text-transform: uppercase;
+    line-height: fz(18);
+    text-box-trim: trim-both;
+    text-box-edge: cap alphabetic;
+    display: flex;
+    align-items: center;
+    align-self: flex-start;
+    &::before {
+        content: "（";
+        margin-right: 0.3em;
+    }
+    &::after {
+        content: "）";
+        margin-left: 0.3em;
+    }
+}
+
+/* ページリンク */
+@mixin page-link {
+    position: relative;
+    color: var(--color);
+    @include radio-canada-big;
+    font-size: fz(40);
+    font-weight: 700;
+    text-transform: uppercase;
+    &::after {
+        content: "";
+        position: absolute;
+        top: calc(100% + 0.2em);
+        width: 100%;
+        left: 0;
+        height: 1px;
+        background-color: var(--color);
     }
 }

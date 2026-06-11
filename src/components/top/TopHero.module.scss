@@ -1,0 +1,24 @@
+@use "../../styles/foundation/" as *;
+
+/* =======================================
+ * Highlax TOP Hero スタイル
+ * URL: /src/components/top/TopHero.module.scss
+ * Referenced in: /src/components/top/TopHero.tsx
+ * Created: 2026-06-10
+ * Last updated: 2026-06-10
+ * ======================================= */
+
+.containerHero {
+    @include flex-center;
+    aspect-ratio: 1366/767;
+    max-height: 767px;
+    background: url("/images/top/hero.webp") no-repeat center center / cover;
+    .itemLogo {
+        position: relative;
+        width: 185px;
+        svg {
+            fill: $main-white;
+            aspect-ratio: 134/124;
+        }
+    }
+}

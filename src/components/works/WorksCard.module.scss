@@ -1,0 +1,50 @@
+@use "../../styles/foundation/" as *;
+
+/* =======================================
+ * Highlax WORKS カード スタイル
+ * URL: /src/components/works/WorksCard.module.scss
+ * Referenced in: /src/components/works/WorksCard.tsx
+ * Created: 2026-06-11
+ * Last updated: 2026-06-11
+ * ======================================= */
+
+.worksCard {
+    display: grid;
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+    gap: 0;
+    font-size: inherit;
+    position: relative;
+    width: 100%;
+    .imageWrap {
+        background-color: #d8d8d8;
+        overflow: hidden;
+        aspect-ratio: 418/ 520;
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    h2 {
+        @include radio-canada-big;
+        font-size: fz(32);
+        font-weight: 700;
+        line-height: 1;
+        margin-top: 2.4rem;
+        text-transform: uppercase;
+    }
+    p {
+        @include radio-canada-big;
+        border: 1px solid #999;
+        border-radius: 100vmax;
+        font-size: fz(16);
+        font-weight: 600;
+        line-height: 1;
+        margin-top: 1.2rem;
+        padding: 0.45em 0.75em;
+        text-transform: uppercase;
+        justify-self: start;
+    }
+}
