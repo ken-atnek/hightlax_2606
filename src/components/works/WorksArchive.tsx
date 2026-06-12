@@ -3,11 +3,12 @@
  * URL: /src/components/works/WorksArchive.tsx
  * Referenced in: /src/app/works/page.tsx
  * Created: 2026-06-11
- * Last updated: 2026-06-11
+ * Last updated: 2026-06-12
  * ======================================= */
 
 'use client';
 
+import clsx from 'clsx';
 import { useMemo, useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import styles from './WorksArchive.module.scss';
@@ -99,7 +100,7 @@ export default function WorksArchive() {
     <section className={styles.worksArchive} ref={archiveRef}>
       <div
         ref={filterRef}
-        className={`${styles.listFilter} ${isFilterFixed ? styles.isFixed : ''}`}
+        className={clsx(styles.listFilter, isFilterFixed && styles.isFixed)}
         role="toolbar"
         aria-label="制作実績カテゴリフィルタ"
       >

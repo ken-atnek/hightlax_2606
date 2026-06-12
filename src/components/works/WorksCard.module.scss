@@ -16,10 +16,14 @@
     font-size: inherit;
     position: relative;
     width: 100%;
+    @include sp {
+        grid-row: unset;
+        grid-template-rows: unset;
+    }
     .imageWrap {
         background-color: #d8d8d8;
         overflow: hidden;
-        aspect-ratio: 418/ 520;
+        aspect-ratio: 418 / 520;
         img {
             display: block;
             width: 100%;
@@ -34,6 +38,9 @@
         line-height: 1;
         margin-top: 2.4rem;
         text-transform: uppercase;
+        @include sp {
+            margin-top: 4vw;
+        }
     }
     p {
         @include radio-canada-big;
@@ -46,5 +53,8 @@
         padding: 0.45em 0.75em;
         text-transform: uppercase;
         justify-self: start;
+        @include sp {
+            margin-top: 2vw;
+        }
     }
 }

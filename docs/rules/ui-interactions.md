@@ -14,10 +14,21 @@
 - `button` に `is-open` クラスを付与して見た目を切り替える
 - `overlay` に `is-open` クラスを付与して表示状態を切り替える
 - SCSS 側で `.hamburgerButton.is-open` / `.overlay.is-open` を使って制御する
-- `className` の条件分岐は `clsx` を使用する（テンプレート文字列連結は避ける）
+- `className` の結合・条件分岐は原則 `clsx` を使用する
+- テンプレート文字列や配列 `join(" ")` での class 名結合は行わない
+- 単一クラス指定のみ `className={styles.foo}` を許容する
 
 ```tsx
+className={styles.title}
+className={clsx(styles.description, styles.pcOnly)}
 className={clsx(styles.overlay, isOpen && styles["is-open"])}
+```
+
+NG例:
+
+```tsx
+className={`${styles.description} ${styles.pcOnly}`}
+className={[styles.overlay, isOpen && styles["is-open"]].join(" ")}
 ```
 
 ### 表示アニメーション

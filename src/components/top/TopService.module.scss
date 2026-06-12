@@ -5,7 +5,7 @@
  * URL: /src/components/top/TopService.module.scss
  * Referenced in: /src/components/top/TopService.tsx
  * Created: 2026-06-10
- * Last updated: 2026-06-11
+ * Last updated: 2026-06-12
  * ======================================= */
 
 .containerService {
@@ -13,11 +13,18 @@
     flex-direction: column;
     align-items: center;
     padding: 45px 0 0;
-    background: url("/images/top/service.webp") no-repeat center center / cover;
+    background: url("/images/top/service.webp") no-repeat top center / contain;
+    background-color: $main-black;
+    @include sp {
+        padding: 8vw 0 0;
+        background-image: url("/images/top/service-sp.webp");
+    }
     h2 {
         @include top-h2;
         color: $main-white;
-        margin-left: 2vw;
+        @include sp {
+            margin-left: 4vw;
+        }
     }
     .sidebarH2 {
         margin-top: 2.828em;
@@ -27,6 +34,14 @@
         @include radio-canada-big;
         font-weight: 700;
         text-align: center;
+        @include sp {
+            text-align: left;
+            margin-top: 20vw;
+            padding-left: 10vw;
+            margin-bottom: 35vw;
+            font-size: fz(56);
+            line-height: 1.14em;
+        }
     }
     article {
         background-color: $main-black;
@@ -36,12 +51,19 @@
         align-items: center;
         padding-inline: calc(2vw + 0.7em);
         padding-bottom: 10rem;
+        @include sp {
+            padding-inline: 0;
+            padding-bottom: 20vw;
+        }
         .innerNav {
             position: relative;
             width: 100%;
             max-width: $article-max-width;
             font-size: inherit;
             margin-bottom: 9rem;
+            @include sp {
+                margin-bottom: 14vw;
+            }
             nav {
                 position: relative;
                 display: flex;
@@ -49,12 +71,20 @@
                 font-size: inherit;
                 counter-reset: number 0;
                 width: 100%;
+                @include sp {
+                    border-top: 1px solid #999;
+                }
                 a {
                     position: relative;
                     font-size: inherit;
                     display: flex;
                     flex-direction: column;
                     padding: 4rem 0 5rem;
+                    @include sp {
+                        justify-content: center;
+                        padding: 0 4vw;
+                        min-height: 60vw;
+                    }
                     &::before {
                         content: "S/0" counter(number);
                         counter-increment: number 1;
@@ -62,6 +92,11 @@
                         font-size: fz(16);
                         font-weight: 500;
                         margin-bottom: 1.6rem;
+                        position: relative;
+                        z-index: 2;
+                        @include sp {
+                            margin-bottom: 2vw;
+                        }
                     }
                     &::after {
                         content: "";
@@ -72,18 +107,65 @@
                         width: 100vw;
                         height: 1px;
                         background-color: #999;
+                        z-index: 2;
                     }
-                    span {
+                    .spImage {
+                        display: none;
+                        @include sp {
+                            display: block;
+                            position: absolute;
+                            inset: 0;
+                            z-index: 0;
+                            &::after {
+                                content: "";
+                                position: absolute;
+                                inset: 0;
+                                background: linear-gradient(
+                                    180deg,
+                                    rgba(17, 17, 17, 0.2) 0%,
+                                    rgba(17, 17, 17, 0.5) 55%,
+                                    rgba(17, 17, 17, 0.72) 100%
+                                );
+                            }
+                        }
+                    }
+                    .spImageItem {
+                        object-fit: cover;
+                    }
+                    .linkContent {
+                        position: relative;
+                        z-index: 2;
+                    }
+                    .titlePc,
+                    .titleSp {
                         @include radio-canada-big;
                         font-size: fz(60);
                         font-weight: 700;
                         text-transform: uppercase;
+                    }
+                    .titlePc {
+                        @include sp {
+                            display: none;
+                        }
+                    }
+                    .titleSp {
+                        display: none;
+                        @include sp {
+                            display: flex;
+                            flex-direction: column;
+                            font-size: 12vw;
+                            line-height: 0.95em;
+                        }
                     }
                     h3 {
                         font-size: fz(19);
                         font-weight: 500;
                         letter-spacing: 0.02em;
                         margin-top: 5px;
+                        @include sp {
+                            margin-top: 3vw;
+                            font-size: 4vw;
+                        }
                     }
                 }
             }
@@ -96,6 +178,10 @@
                 aspect-ratio: 1;
                 overflow: hidden;
                 background-color: #1a1a1a;
+                z-index: 2;
+                @include sp {
+                    display: none;
+                }
                 .pageImageItem {
                     object-fit: cover;
                     position: absolute;

@@ -3,7 +3,7 @@
  * URL: /src/components/service/ServiceArchive.tsx
  * Referenced in: /src/app/service/page.tsx
  * Created: 2026-06-11
- * Last updated: 2026-06-11
+ * Last updated: 2026-06-12
  * ======================================= */
 
 'use client';
@@ -11,8 +11,10 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import clsx from 'clsx';
 import styles from './ServiceArchive.module.scss';
 import { serviceSections } from '@/data/service';
+import ScrollLink from '@/components/common/ScrollLink';
 
 type SlideState = 'active' | 'prev' | 'next' | 'far-prev' | 'far-next';
 
@@ -103,18 +105,19 @@ export default function ServiceArchive() {
     <section className={styles.serviceArchive} ref={archiveRef}>
       <nav
         ref={navRef}
-        className={`${styles.serviceNav} ${isNavFixed ? styles.isFixed : ''}`}
+        className={clsx(styles.serviceNav, isNavFixed && styles.isFixed)}
         aria-label="サービスカテゴリナビゲーション"
       >
         {serviceSections.map((section) => (
-          <Link
+          <ScrollLink
             key={section.id}
             href={`#${section.id}`}
             className={styles.navLink}
           >
             <span>{section.number}</span>
             <em>{section.title}</em>
-          </Link>
+            <strong className={styles.navLabelJa}>{section.titleJa}</strong>
+          </ScrollLink>
         ))}
       </nav>
 
@@ -134,7 +137,7 @@ export default function ServiceArchive() {
               >
                 <button
                   type="button"
-                  className={`${styles.slideArrow} ${styles.prevArrow}`}
+                  className={clsx(styles.slideArrow, styles.prevArrow)}
                   aria-label={`${section.titleJa} の前の制作事例へ`}
                   onClick={() => handleMoveSlide(section.id, -1)}
                 ></button>
@@ -148,7 +151,7 @@ export default function ServiceArchive() {
                     );
 
                     return (
-                      <article
+                      <div
                         key={work.id}
                         className={styles.slideCard}
                         data-slide-state={slideState}
@@ -162,14 +165,14 @@ export default function ServiceArchive() {
                           fill
                           sizes="500px"
                         />
-                      </article>
+                      </div>
                     );
                   })}
                 </div>
 
                 <button
                   type="button"
-                  className={`${styles.slideArrow} ${styles.nextArrow}`}
+                  className={clsx(styles.slideArrow, styles.nextArrow)}
                   aria-label={`${section.titleJa} の次の制作事例へ`}
                   onClick={() => handleMoveSlide(section.id, 1)}
                 ></button>
@@ -178,8 +181,16 @@ export default function ServiceArchive() {
 
             <div className={styles.sectionBody}>
               <h3>{section.title}</h3>
-              <p className={styles.description}>
-                {section.descriptionLines.map((line) => (
+              <p
+                className={clsx(styles.description, styles.pcOnly)}
+                aria-hidden="true"
+              >
+                {section.descriptionLinesPc.map((line) => (
+                  <span key={line}>{line}</span>
+                ))}
+              </p>
+              <p className={clsx(styles.description, styles.spOnly)}>
+                {section.descriptionLinesSp.map((line) => (
                   <span key={line}>{line}</span>
                 ))}
               </p>

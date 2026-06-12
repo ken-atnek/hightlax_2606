@@ -3,11 +3,12 @@
  * URL: /src/components/top/TopWorks.tsx
  * Referenced in: /src/app/page.tsx
  * Created: 2026-06-11
- * Last updated: 2026-06-11
+ * Last updated: 2026-06-12
  * ======================================= */
 
 'use client';
 
+import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { worksItems, type WorksItem } from '@/data/works';
@@ -45,26 +46,12 @@ type GallerySlot = {
   variant: SlotVariant;
 };
 
-function shuffleWorks(items: WorksItem[]) {
-  const copiedItems = [...items];
-
-  for (let index = copiedItems.length - 1; index > 0; index -= 1) {
-    const randomIndex = Math.floor(Math.random() * (index + 1));
-    [copiedItems[index], copiedItems[randomIndex]] = [
-      copiedItems[randomIndex],
-      copiedItems[index],
-    ];
-  }
-
-  return copiedItems;
-}
-
-function createInitialSlots(): GallerySlot[] {
-  const shuffledItems = shuffleWorks(worksItems);
-
+function createInitialSlots(
+  sourceItems: WorksItem[] = worksItems
+): GallerySlot[] {
   return slotVariants.map((variant, index) => ({
     variant,
-    current: shuffledItems[index % shuffledItems.length],
+    current: sourceItems[index % sourceItems.length],
     previous: null,
   }));
 }
@@ -175,7 +162,10 @@ export default function TopWorks() {
           {gallerySlots.map((slot) => (
             <div
               key={slot.variant}
-              className={`${styles.itemWork} ${SLOT_VARIANT_CLASS_NAMES[slot.variant]}`}
+              className={clsx(
+                styles.itemWork,
+                SLOT_VARIANT_CLASS_NAMES[slot.variant]
+              )}
               aria-hidden="true"
             >
               <div className={styles.imageFrame}>
@@ -186,7 +176,10 @@ export default function TopWorks() {
                     alt=""
                     fill
                     sizes="330px"
-                    className={`${styles.imageItem} ${styles.imageItemPrevious}`}
+                    className={clsx(
+                      styles.imageItem,
+                      styles.imageItemPrevious
+                    )}
                   />
                 )}
                 <Image
@@ -195,7 +188,10 @@ export default function TopWorks() {
                   alt=""
                   fill
                   sizes="330px"
-                  className={`${styles.imageItem} ${styles.imageItemCurrent}`}
+                  className={clsx(
+                    styles.imageItem,
+                    styles.imageItemCurrent
+                  )}
                 />
               </div>
             </div>
@@ -204,8 +200,9 @@ export default function TopWorks() {
         <div className={styles.boxText}>
           <h3>“Make it yours”</h3>
           <p>
-            Made for the way you live,work, and spend your time.
-            <br />
+            Made for the way you live,work, and spend <br className="sp" />
+            your time.
+            <br className="pc" />
             Each piece is shaped around you.
           </p>
         </div>

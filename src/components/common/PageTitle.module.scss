@@ -14,6 +14,9 @@
     align-items: center;
     padding: 16rem 2rem 11rem;
     border-bottom: 1px solid #999;
+    @include sp {
+        padding: 24vw 0 14vw;
+    }
     h1 {
         @include radio-canada-big;
         font-size: fz(140);
@@ -22,5 +25,8 @@
         letter-spacing: -0.02em;
         text-transform: uppercase;
         text-align: center;
+        @include sp {
+            font-size: 20vw;
+        }
     }
 }

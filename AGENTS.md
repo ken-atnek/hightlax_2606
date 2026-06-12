@@ -7,6 +7,17 @@
 
 ---
 
+## 新規スレッド開始時の必須確認
+
+- 新しいスレッドを開いたら、実装や提案の前に必ずこの `AGENTS.md` を読む
+- 続けて `docs/PAGE_STRUCTURE.md` を確認し、今回の作業対象ページを把握する
+- `tsx` を触る前は `docs/rules/tsx-comment-rules.md` を確認する
+- `scss` を触る前は `docs/rules/scss-comment-rules.md` と `docs/rules/coding-style.md` を確認する
+- 作業前に該当ルールmdの確認が済んでいない状態で、コード編集を始めない
+- 不明点があっても、まずは参照順のmdを見てから判断する
+
+---
+
 ## 技術方針
 
 - Next.js（App Router）前提

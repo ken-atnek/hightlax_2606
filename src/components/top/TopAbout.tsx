@@ -28,7 +28,9 @@ export default function TopAbout() {
           />
         </div>
         <p>
-          LAX PRODUCTIONSは阿蘇を拠点とするデザインスタジオです。
+          LAX PRODUCTIONSは阿蘇を拠点とする
+          <br className="sp" />
+          デザインスタジオです。
           <br />
           彩りとチカラを与える独創的な創造が、
           <br />

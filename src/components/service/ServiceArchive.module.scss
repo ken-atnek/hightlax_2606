@@ -5,7 +5,7 @@
  * URL: /src/components/service/ServiceArchive.module.scss
  * Referenced in: /src/components/service/ServiceArchive.tsx
  * Created: 2026-06-11
- * Last updated: 2026-06-11
+ * Last updated: 2026-06-12
  * ======================================= */
 
 .serviceArchive {
@@ -13,6 +13,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    @include sp {
+        padding: 4vw 2vw 14vw;
+    }
     .serviceNav {
         position: absolute;
         top: -1.4em;
@@ -23,9 +26,21 @@
         gap: 0.8rem 0;
         margin-left: auto;
         font-size: inherit;
+        @include sp {
+            position: relative;
+            justify-content: stretch;
+            width: 100%;
+            top: unset;
+            right: unset;
+            gap: 2vw 0;
+        }
         &.isFixed {
             position: fixed;
             top: 12rem;
+            @include sp {
+                position: relative;
+                top: 0;
+            }
         }
         .navLink {
             @include radio-canada-big;
@@ -48,6 +63,21 @@
                 font-size: fz(14);
                 font-weight: 700;
             }
+            .navLabelJa {
+                display: none;
+                font-size: fz(12);
+                font-weight: 500;
+                line-height: 1.2;
+            }
+            @include sp {
+                border-right: 1px solid #999;
+                justify-content: start;
+                grid-template-columns: auto auto 1fr;
+                gap: 0.2em 0.8rem;
+                .navLabelJa {
+                    display: block;
+                }
+            }
         }
     }
     .sectionList {
@@ -58,17 +88,28 @@
         font-size: inherit;
         overflow: hidden;
         width: 100%;
+        @include sp {
+            margin-top: 4vw;
+            gap: 4vw 0;
+            max-width: unset;
+        }
         article {
             background-color: $main-black;
             color: $main-white;
             padding: 3.2rem 3.6rem 7.2rem;
-            // scroll-margin-top: 14rem;
+            @include sp {
+                padding: 4vw 0 20vw;
+            }
             .sectionHead {
                 display: flex;
                 flex-direction: column;
                 gap: 0.2rem 0;
                 margin-bottom: 4.2rem;
                 font-size: inherit;
+                @include sp {
+                    padding-left: 4vw;
+                    margin-bottom: 8vw;
+                }
                 p,
                 h2 {
                     @include radio-canada-big;
@@ -121,9 +162,15 @@
                         }
                         &.prevArrow {
                             translate: calc(-50% + 25rem) -50%;
+                            @include sp {
+                                translate: calc(-50% + 34vw) -50%;
+                            }
                         }
                         &.nextArrow {
                             translate: calc(-50% - 25rem) -50%;
+                            @include sp {
+                                translate: calc(-50% - 34vw) -50%;
+                            }
                             &::after {
                                 scale: -1 1;
                             }
@@ -135,6 +182,9 @@
                         min-height: 60rem;
                         perspective: 1600px;
                         overflow: hidden;
+                        @include sp {
+                            min-height: 81vw;
+                        }
                         .slideCard {
                             position: absolute;
                             inset: 0;
@@ -147,10 +197,13 @@
                             transition:
                                 opacity 0.35s ease,
                                 transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
-                            // box-shadow: 0 2.4rem 4.8rem rgb(0 0 0 / 24%);
                             opacity: 0;
                             transform: translateX(0) scale(0.56) rotateY(0deg);
                             pointer-events: none;
+                            @include sp {
+                                width: 68vw;
+                                height: 81vw;
+                            }
                             img {
                                 object-fit: cover;
                                 display: block;
@@ -196,28 +249,55 @@
                 gap: 2.2rem 0;
                 text-align: center;
                 font-size: inherit;
-                translate: 0 -3rem;
                 z-index: 0;
+                translate: 0 -3rem;
                 margin-bottom: -3rem;
+                @include sp {
+                    translate: 0 -3vw;
+                    margin-bottom: -3vw;
+                    gap: 4vw 0;
+                }
                 h3 {
                     @include radio-canada-big;
-                    color: #bfbfbf;
                     font-size: fz(120);
                     font-weight: 700;
                     line-height: 0.92;
                     letter-spacing: -0.02em;
                     text-transform: uppercase;
+                    @include sp {
+                        font-size: 10.8vw;
+                        line-height: 0.9;
+                    }
                 }
                 .description {
                     display: flex;
                     flex-direction: column;
                     font-size: inherit;
-                    margin-top: 6rem;
+                    color: #bfbfbf;
                     span {
                         font-size: fz(16);
                         line-height: 2.4em;
                         font-weight: 500;
                         display: flex;
+                        letter-spacing: 0.02em;
+                        @include sp {
+                            font-size: 3.75vw;
+                            line-height: 2.05;
+                            letter-spacing: 0.01em;
+                        }
+                    }
+                    &.pcOnly {
+                        margin-top: 6rem;
+                        @include sp {
+                            display: none;
+                        }
+                    }
+                    &.spOnly {
+                        display: none;
+                        @include sp {
+                            display: flex;
+                            margin-top: 4vw;
+                        }
                     }
                 }
                 .linkWorks {
@@ -226,6 +306,10 @@
                     justify-self: end;
                     margin-top: 0.8rem;
                     margin-right: 2.8rem;
+                    @include sp {
+                        margin-top: 1vw;
+                        margin-right: 6vw;
+                    }
                 }
             }
         }

@@ -12,14 +12,25 @@
     padding-top: 9rem;
     padding-bottom: 10rem;
     overflow: hidden;
+    @include sp {
+        padding: 8vw 4vw 14vw;
+        display: flex;
+        flex-direction: column;
+    }
     .boxHead {
         position: relative;
         padding-inline: 2vw;
         display: flex;
         flex-direction: column;
         font-size: inherit;
+        @include sp {
+            display: contents;
+        }
         h2 {
             @include top-h2;
+            @include sp {
+                order: -1;
+            }
         }
         p {
             font-size: fz(16);
@@ -28,6 +39,9 @@
             line-height: 1.8em;
             margin-top: 1em;
             padding-left: 1rem;
+            @include sp {
+                order: 1;
+            }
         }
         a {
             @include page-link;
@@ -35,6 +49,14 @@
             top: 0;
             right: 2vw;
             --color: #{$main-black};
+            @include sp {
+                order: 1;
+                position: relative;
+                align-self: flex-end;
+                top: unset;
+                right: 0;
+                margin-top: 6vw;
+            }
         }
     }
     article {
@@ -45,6 +67,9 @@
         font-size: inherit;
         margin-top: 7rem;
         padding-top: 48rem;
+        @include sp {
+            display: contents;
+        }
         .innerImage {
             display: flex;
             gap: 0 5rem;
@@ -53,11 +78,21 @@
             left: 50%;
             translate: -50%;
             width: max-content;
+            @include sp {
+                top: 48vw;
+                gap: 0 4vw;
+            }
             .itemWork {
                 width: 33rem;
                 flex: 0 1 auto;
+                @include sp {
+                    width: 40vw;
+                }
                 &:nth-child(even) {
                     margin-top: 9rem;
+                    @include sp {
+                        margin-top: 6vw;
+                    }
                 }
                 .imageFrame {
                     position: relative;
@@ -92,9 +127,20 @@
         flex-direction: column;
         padding-left: 14vw;
         @include radio-canada-big;
+        @include sp {
+            order: -1;
+            padding-bottom: 70vw;
+            padding-left: unset;
+            align-self: center;
+            align-items: center;
+            padding-top: 6vw;
+        }
         h3 {
             font-size: fz(80);
             font-weight: 700;
+            @include sp {
+                font-size: 10vw;
+            }
         }
         p {
             font-size: fz(18);
@@ -102,6 +148,11 @@
             line-height: 1.6em;
             padding-left: 2em;
             margin-top: 0.8em;
+            @include sp {
+                padding-left: unset;
+                margin-top: unset;
+                font-size: fz(16);
+            }
         }
     }
 }

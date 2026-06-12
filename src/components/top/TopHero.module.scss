@@ -10,15 +10,22 @@
 
 .containerHero {
     @include flex-center;
-    aspect-ratio: 1366/767;
+    aspect-ratio: 1366 / 767;
     max-height: 767px;
     background: url("/images/top/hero.webp") no-repeat center center / cover;
+    @include sp {
+        background-image: url("/images/top/hero-sp.webp");
+        aspect-ratio: unset;
+        height: 100vh;
+        height: 100dvh;
+        max-height: unset;
+    }
     .itemLogo {
         position: relative;
         width: 185px;
         svg {
             fill: $main-white;
-            aspect-ratio: 134/124;
+            aspect-ratio: 134 / 124;
         }
     }
 }

@@ -93,8 +93,8 @@ export default function ScrollLink({
     : null;
 
   const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
-    // 同一ページなら「遷移」ではなく「スクロール」扱いにする
-    if (compareTargetPath && currentPath === compareTargetPath) {
+    // パスなし（#hashのみ）または同一ページなら「遷移」ではなく「スクロール」扱いにする
+    if (!compareTargetPath || currentPath === compareTargetPath) {
       e.preventDefault();
 
       if (targetHash) {

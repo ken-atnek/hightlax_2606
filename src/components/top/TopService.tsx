@@ -3,11 +3,12 @@
  * URL: /src/components/top/TopService.tsx
  * Referenced in: /src/app/page.tsx
  * Created: 2026-06-10
- * Last updated: 2026-06-11
+ * Last updated: 2026-06-12
  * ======================================= */
 
 'use client';
 
+import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import styles from './TopService.module.scss';
@@ -17,9 +18,16 @@ import type { WorksItem } from '@/data/works';
 
 const defaultSection = serviceSections[0];
 const FADE_DURATION_MS = 500;
+const initialMobileWorks = Object.fromEntries(
+  serviceSections.map((section) => [section.category, section.works[0] ?? null])
+) as Record<(typeof serviceSections)[number]['category'], WorksItem | null>;
 
-function pickRandomWorkImage(category: (typeof serviceSections)[number]['category']) {
-  const works = serviceSections.find((section) => section.category === category)?.works ?? [];
+function pickRandomWorkImage(
+  category: (typeof serviceSections)[number]['category']
+) {
+  const works =
+    serviceSections.find((section) => section.category === category)?.works ??
+    [];
 
   if (works.length === 0) {
     return null;
@@ -33,6 +41,29 @@ export default function TopService() {
     defaultSection.works[0] ?? null
   );
   const [previousWork, setPreviousWork] = useState<WorksItem | null>(null);
+  const [mobileWorks, setMobileWorks] =
+    useState<Record<(typeof serviceSections)[number]['category'], WorksItem | null>>(
+      initialMobileWorks
+    );
+
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      setMobileWorks((currentWorks) => {
+        const nextWorks = serviceSections.reduce<
+          Record<(typeof serviceSections)[number]['category'], WorksItem | null>
+        >((accumulator, section) => {
+          accumulator[section.category] = pickRandomWorkImage(section.category);
+          return accumulator;
+        }, { ...currentWorks });
+
+        return nextWorks;
+      });
+    }, 0);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, []);
 
   useEffect(() => {
     if (!previousWork) {
@@ -48,7 +79,9 @@ export default function TopService() {
     };
   }, [previousWork]);
 
-  const handleImageChange = (category: (typeof serviceSections)[number]['category']) => {
+  const handleImageChange = (
+    category: (typeof serviceSections)[number]['category']
+  ) => {
     const nextWork = pickRandomWorkImage(category);
 
     if (!nextWork || nextWork.id === activeWork?.id) {
@@ -63,24 +96,48 @@ export default function TopService() {
     <section className={styles.containerService}>
       <h2>service</h2>
       <p className={styles.sidebarH2}>
-        We design solutions for spaces,
+        We design solutions <br className="sp" />
+        for spaces,
         <br />
         furniture, and details.
       </p>
       <article>
         <div className={styles.innerNav}>
           <nav>
-            {serviceSections.map((section) => (
-              <ScrollLink
-                key={section.id}
-                href={`/service/#${section.id}`}
-                onMouseEnter={() => handleImageChange(section.category)}
-                onFocus={() => handleImageChange(section.category)}
-              >
-                <span>{section.title}</span>
-                <h3>{section.titleJa}</h3>
-              </ScrollLink>
-            ))}
+            {serviceSections.map((section) => {
+              const mobileWork = mobileWorks[section.category];
+              const titleLines = section.title.split(' ');
+
+              return (
+                <ScrollLink
+                  key={section.id}
+                  href={`/service/#${section.id}`}
+                  onMouseEnter={() => handleImageChange(section.category)}
+                  onFocus={() => handleImageChange(section.category)}
+                >
+                  {mobileWork && (
+                    <div className={styles.spImage}>
+                      <Image
+                        src={mobileWork.imageSrc}
+                        alt=""
+                        fill
+                        sizes="100vw"
+                        className={styles.spImageItem}
+                      />
+                    </div>
+                  )}
+                  <div className={styles.linkContent}>
+                    <span className={styles.titlePc}>{section.title}</span>
+                    <span className={styles.titleSp} aria-hidden="true">
+                      {titleLines.map((line) => (
+                        <span key={`${section.id}-${line}`}>{line}</span>
+                      ))}
+                    </span>
+                    <h3>{section.titleJa}</h3>
+                  </div>
+                </ScrollLink>
+              );
+            })}
           </nav>
           <div className={styles.pageImage}>
             {previousWork && (
@@ -90,7 +147,10 @@ export default function TopService() {
                 alt=""
                 fill
                 sizes="(max-width: 768px) 100vw, 34vw"
-                className={`${styles.pageImageItem} ${styles.pageImageItemPrevious}`}
+                className={clsx(
+                  styles.pageImageItem,
+                  styles.pageImageItemPrevious
+                )}
               />
             )}
             {activeWork && (
@@ -100,7 +160,10 @@ export default function TopService() {
                 alt={activeWork.imageAlt}
                 fill
                 sizes="(max-width: 768px) 100vw, 34vw"
-                className={`${styles.pageImageItem} ${styles.pageImageItemCurrent}`}
+                className={clsx(
+                  styles.pageImageItem,
+                  styles.pageImageItemCurrent
+                )}
               />
             )}
           </div>

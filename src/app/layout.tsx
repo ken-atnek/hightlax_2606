@@ -3,9 +3,10 @@
  * URL: /src/app/layout.tsx
  * Referenced in: /src/app/layout.tsx
  * Created: 2026-06-04
- * Last updated: 2026-06-11
+ * Last updated: 2026-06-12
  * ======================================= */
 
+import clsx from 'clsx';
 import type { Metadata } from 'next';
 import SvgDefs from '@/components/SvgDefs';
 import { IBM_Plex_Sans_JP, Radio_Canada_Big } from 'next/font/google';
@@ -39,6 +40,20 @@ export const metadata: Metadata = {
     template: `%s | ${siteName}`,
   },
   description: siteDescription,
+  icons: {
+    icon: [
+      {
+        url: '/favicon/favicon-light.svg',
+        type: 'image/svg+xml',
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        url: '/favicon/favicon-dark.svg',
+        type: 'image/svg+xml',
+        media: '(prefers-color-scheme: dark)',
+      },
+    ],
+  },
   ...(isRealProduction && {
     metadataBase,
     openGraph: {
@@ -74,7 +89,7 @@ export default function RootLayout({
   return (
     <html
       lang="ja"
-      className={`${ibmPlexSansJp.variable} ${radioCanadaBig.variable}`}
+      className={clsx(ibmPlexSansJp.variable, radioCanadaBig.variable)}
     >
       <body>
         <SvgDefs />
