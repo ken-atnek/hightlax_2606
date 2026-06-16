@@ -94,6 +94,7 @@
                 background-color: $main-black;
                 align-self: flex-end;
                 margin-top: 2.2rem;
+                transition: 0.3s ease-out;
                 @include sp {
                     display: none;
                 }
@@ -104,6 +105,24 @@
                     margin: auto;
                     width: 1rem;
                     @include svg-arrow-top-right("e7e7e7");
+                    transition: 0.3s ease-out;
+                }
+            }
+            @include hover {
+                span {
+                    &::before {
+                        clip-path: inset(0 100% 0 0);
+                    }
+                    &::after {
+                        clip-path: inset(0 0 0 100%);
+                    }
+                }
+                i {
+                    background-color: transparent;
+                    border: 1px solid $main-black;
+                    &::after {
+                        @include svg-arrow-top-right("1d1d1d");
+                    }
                 }
             }
         }
@@ -111,12 +130,17 @@
     .itemLogo {
         position: relative;
         width: 134px;
+        transition: 0.3s ease-out;
+
         @include sp {
             width: 30vw;
         }
         svg {
             fill: $main-black;
             aspect-ratio: 134 / 124;
+        }
+        @include hover {
+            opacity: 0.8;
         }
     }
     .copyRight {

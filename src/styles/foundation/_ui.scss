@@ -3,6 +3,7 @@
 @use "./typography" as *;
 @use "./settings" as *;
 @use "./breakpoints" as *;
+@use "./interaction" as *;
 
 /* =========================================
 ドロップシャドウ
@@ -74,13 +75,29 @@ TOPページ
     font-size: fz(40);
     font-weight: 700;
     text-transform: uppercase;
+    &::before,
     &::after {
         content: "";
         position: absolute;
         top: calc(100% + 0.2em);
-        width: 100%;
-        left: 0;
         height: 1px;
         background-color: var(--color);
+        transition: 0.3s ease-out;
+        clip-path: inset(0 0 0 0);
+        width: 50%;
+    }
+    &::before {
+        left: 0;
+    }
+    &::after {
+        right: 0;
+    }
+    @include hover {
+        &::before {
+            clip-path: inset(0 100% 0 0);
+        }
+        &::after {
+            clip-path: inset(0 0 0 100%);
+        }
     }
 }

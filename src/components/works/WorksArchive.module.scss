@@ -71,6 +71,11 @@
                 border-right: 1px solid #999;
                 justify-content: center;
             }
+            &:not([data-active="true"]) {
+                @include hover {
+                    background-color: #bfbfbf;
+                }
+            }
         }
     }
     .listWorks {

@@ -55,6 +55,8 @@
             color: $main-black;
             text-transform: uppercase;
             font-size: inherit;
+            transition: 0.3s ease-out;
+
             span {
                 color: $main-black;
                 font-size: fz(14);
@@ -68,6 +70,9 @@
                 font-size: fz(12);
                 font-weight: 500;
                 line-height: 1.2;
+            }
+            @include hover {
+                filter: invert(100%);
             }
             @include sp {
                 border-right: 1px solid #999;
@@ -152,6 +157,8 @@
                         background-color: $light-gray;
                         cursor: pointer;
                         padding: 0;
+                        transition: 0.3s ease-out;
+
                         &::after {
                             content: "";
                             position: absolute;
@@ -174,6 +181,9 @@
                             &::after {
                                 scale: -1 1;
                             }
+                        }
+                        @include hover {
+                            background-color: rgba($light-gray, 0.8);
                         }
                     }
                     .slideViewport {
@@ -307,7 +317,7 @@
                     margin-top: 0.8rem;
                     margin-right: 2.8rem;
                     @include sp {
-                        margin-top: 1vw;
+                        margin-top: 6vw;
                         margin-right: 6vw;
                     }
                 }

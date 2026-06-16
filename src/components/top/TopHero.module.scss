@@ -17,12 +17,15 @@
         background-image: url("/images/top/hero-sp.webp");
         aspect-ratio: unset;
         height: 100vh;
-        height: 100dvh;
+        // height: 100dvh;
         max-height: unset;
     }
     .itemLogo {
         position: relative;
         width: 185px;
+        @include sp {
+            width: 40vw;
+        }
         svg {
             fill: $main-white;
             aspect-ratio: 134 / 124;
