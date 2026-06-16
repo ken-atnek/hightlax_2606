@@ -102,7 +102,7 @@ export default function WorksArchive() {
         ref={filterRef}
         className={clsx(styles.listFilter, isFilterFixed && styles.isFixed)}
         role="toolbar"
-        aria-label="制作実績カテゴリフィルタ"
+        aria-label="製作実績カテゴリフィルタ"
       >
         {filterOptions.map((option) => (
           <button

@@ -16,6 +16,6 @@ export default function robots(): MetadataRoute.Robots {
           userAgent: '*',
           disallow: '/',
         },
-    sitemap: `${metadataBase}/sitemap.xml`,
+    ...(isRealProduction && { sitemap: `${metadataBase}/sitemap.xml` }),
   };
 }
